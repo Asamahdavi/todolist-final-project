@@ -10,12 +10,13 @@ export const DatePickerComponent = ({
   date,
   time,
 }: DatePickerProps) => {
+  const d = new Date();
   const handleDateChanges = (date: moment.Moment | null | undefined) => {
     let formattedDate = moment(date).format("LL");
     setDate(formattedDate);
     console.log(formattedDate);
   };
-  const stringValue = moment(date).format("LL");
+  const stringValue = moment(d).format("LL");
   const dateFormat = "LL";
 
   const nodeRef = React.useRef(null);

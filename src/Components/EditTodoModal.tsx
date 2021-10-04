@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import ReactDOM from "react-dom";
 import { EditTodoProps } from "./types/fileTypes";
 import { FormEvent } from "react";
 import React from "react";
+import { DatePickerComponent } from "./DatePickerComponent";
+import { TimePickerComponent } from "./TimePickerComponent";
 const EditTodoModal: React.FC<EditTodoProps> = ({
   onBackDropClick,
   handleAddTodo,
   children,
   setTask,
-  todo: { id, date, time, task },
+  todo: { id, task },
   setTodos,
   todos,
   editedTask,
@@ -16,8 +17,12 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   editedTodo,
   setEditedTodo,
   todo,
+  setTime,
+  time,
+  date,
+  setDate,
 }) => {
-  let now = new Date().toLocaleDateString();
+  //   let now = new Date().toLocaleDateString();
 
   function submitEdits(id: string) {
     const updatedTodos = [...todos].map((todo) => {
@@ -27,14 +32,10 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
       return todo;
     });
     setTodos(updatedTodos);
-    console.log("id:");
-    console.log(id);
-    setEditedTodo(null);
   }
   const handleSubmitTodo = (e: FormEvent): void => {
     e.preventDefault();
     task = editedTask;
-
     setTodos([...todos]);
     onBackDropClick();
   };
@@ -64,13 +65,20 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
           />
         </div>
         <div className=" flex  p-4  justify-center">
-          <input
-            type="text"
-            name="date"
-            placeholder={`${now}`}
-            className="w-2/6 pl-12 pr-14 border-2 bg-gray-50 border-gray-300 rounded-sm"
-          />
-
+          <div className="w-full">
+            <TimePickerComponent
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            />
+            <DatePickerComponent
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            />
+          </div>
           <div className="w-2/6  pl-2 pr-2 "></div>
         </div>
         <div className="flex  pb-8 justify-end">

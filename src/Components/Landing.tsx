@@ -78,7 +78,7 @@ export const Landing = () => {
         <>
           <div className="landingP">
             <button
-              className="btn-add-task  active:bg-pink-600   shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className=" btn-add-task  active:bg-pink-600   shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               onClick={openCloseModal}
             >
               <span className="text-3xl  py-0.75 "> +</span>
@@ -130,6 +130,7 @@ export const Landing = () => {
             </button>
             <button className=" btn-dateFilters border">Week</button>
             <button className=" btn-dateFilters  rounded-r border ">Day</button>
+            <hr className="bg-black" />
           </div>
           <div className="absolute flex px-1 bg-center top-52 text-gray-600 left-36">
             <span className=" py-4 "> Tasks</span>
@@ -138,7 +139,7 @@ export const Landing = () => {
             <span className="pr-36 pl-28 py-4"> Time</span>
             <span> </span>
           </div>
-          <div className="App bg-center h-screen flex justify-end items-center  bg-gray-50">
+          <div className=" bg-center h-screen flex justify-end items-center  ">
             <section className=" bg-left w-full lg:w-full px-14 flex flex-col items-center">
               <div className=" absolute bg-left w-full lg:w-full px-14 top-72 flex flex-col items-center">
                 {todos

@@ -43,16 +43,17 @@ export const Row = ({
           className="text-gray-400 rounded-sm "
         />
       </div>
-      <p
-        className={` pl-16
-          ml-2 text-xl font-sans font-medium 
+      <div
+        className={`flex justify-evenly pl-16
+          ml-2 text-xl font-sans font-medium  
           ${isCompleted ? "text-white line-through" : "text-gray-800"}
         `}
       >
-        {task} <span>{time}</span>
-        <span>{status}</span>
-        <span>{date}</span>
-      </p>
+        <div className="flex justify-start">{task}</div>{" "}
+        <span className="flex justify-between">{status}</span>
+        <div className="">{date}</div>
+        <div className="">{time}</div>
+      </div>
       <div className="w-1/6 pl-36 flex justify-between items-center mr-1">
         <div>
           <button

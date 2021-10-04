@@ -5,7 +5,8 @@ import React from "react";
 import { DatePickerProps } from "./types/fileTypes";
 import "antd/dist/antd.css";
 export const TimePickerComponent = ({ setTime, date }: DatePickerProps) => {
-  const stringTime = moment(date).format("LTS");
+  const d = new Date();
+  const stringTime = moment(d).format("LTS");
 
   const handleTimeChanges = (time: moment.Moment | null | undefined) => {
     let formattedTime = moment(time).format("HH:mm:ss");
