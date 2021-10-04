@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { addModal } from "./types/fileTypes";
 import { ChangeEvent, FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
-// import DatePickerCalender from "./DatePickerCalender";
+import { TimePickerComponent } from "./TimePickerComponent";
+import { DatePickerComponent } from "./DatePickerComponent";
 
 export const AddTodo: React.FC<addModal> = ({
   onBackDropClick,
@@ -64,8 +65,23 @@ export const AddTodo: React.FC<addModal> = ({
           />
         </div>
         <div className="  flex  p-2  justify-center">
-          <div className="w-full"></div>
-          <div className="w-2/6  pl-2 pr-2  pt-4"></div>
+          <div className="w-full">
+            <TimePickerComponent
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            />
+            <DatePickerComponent
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            />
+          </div>
+          <div className="w-2/6  pl-2 pr-2  pt-4">
+            {/* <Status setStatus={setStatus} /> */}
+          </div>
         </div>
         <div className="flex  pb-8 justify-end">
           {" "}

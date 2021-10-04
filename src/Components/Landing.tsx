@@ -3,7 +3,6 @@ import { Row } from "./Row";
 import { data } from "./types/staticTodos";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
 import { Todo } from "./types/fileTypes";
-
 import moment from "moment";
 import React from "react";
 
@@ -14,7 +13,7 @@ export const Landing = () => {
   const [task, setTask] = useState("");
   const [todos, setTodos] = useState<Todo[]>(data);
   const [date, setDate] = useState<string | null | undefined>(
-    moment(dateNow).format("YYYY-MM-DD")
+    moment(dateNow).format("LL")
   );
   let formattedDate = moment(dateNow).format("HH:mm:ss");
   const [time, setTime] = useState<string | null | undefined | null>(
@@ -120,6 +119,7 @@ export const Landing = () => {
                 value="completed"
                 onClick={() => setTruevalue(false)}
               >
+                {" "}
                 Done
               </button>
             </div>

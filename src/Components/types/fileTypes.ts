@@ -107,3 +107,12 @@ export type BaseEditModalWrapperProps = {
   id: string;
   todo: Todo;
 };
+
+//date Picker types
+
+export type DatePickerProps = {
+  time: string | null | undefined;
+  setTime: (time: string | null | undefined) => void;
+  setDate: (date: string | null | undefined) => void;
+  date: string | null | undefined;
+};
