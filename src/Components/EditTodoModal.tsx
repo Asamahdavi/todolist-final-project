@@ -9,7 +9,6 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   children,
   setTask,
   todo: { id, date, time, task },
-  // submitEdits,
   setTodos,
   todos,
   editedTask,
