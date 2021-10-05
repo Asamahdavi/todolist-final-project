@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Row } from "./Row";
 import { data } from "./types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
@@ -6,7 +6,7 @@ import { Todo } from "./types/fileTypes";
 import moment from "moment";
 import React from "react";
 
-export const Landing = () => {
+export const Landing = memo(() => {
   //states
   let dateNow = new Date();
   const [showModal, setShowModal] = useState(false);
@@ -15,11 +15,10 @@ export const Landing = () => {
   const [date, setDate] = useState<string | null | undefined>(
     moment(dateNow).format("LL")
   );
-  let formattedDate = moment(dateNow).format("HH:mm:ss");
+  const formattedDate = moment(dateNow).format("HH:mm:ss");
   const [time, setTime] = useState<string | null | undefined>(formattedDate);
   const [status, setStatus] = useState<any>();
   const [editedTask, setEditedTask] = useState("");
-  const [editedTodo, setEditedTodo] = useState<Todo | undefined | null>();
   const [editedTime, setEditedTime] = useState<string | null | undefined>();
   const [editedDate, setEditedDate] = useState<string | null | undefined>();
   const [editedStatus, setEditedStatus] = useState<any>();
@@ -27,7 +26,7 @@ export const Landing = () => {
   const hasTodos = todos.length > 0;
   //UseEffect
 
-  React.useEffect(() => {
+  useEffect(() => {
     const json = localStorage.getItem("todos");
     const loadedTodos = JSON.parse(json || "{}");
     if (loadedTodos) {
@@ -35,29 +34,36 @@ export const Landing = () => {
     }
   }, [setTodos]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const json = JSON.stringify(todos);
     localStorage.setItem("todos", json);
   }, [todos]);
+
   const handleCheckTodo = (id: string) => {};
 
-  function submitEdits(id: string) {
-    const updatedTodos = [...todos].map((todo) => {
-      if (todo.id === id) {
-        todo.task = editedTask;
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-    console.log(todos);
-  }
+  // const submitEdits = useCallback(
+  //   (id: string) => {
+  //     const updatedTodos = [...todos].map((todo) => {
+  //       if (todo.id === id) {
+  //         todo.task = editedTask;
+  //       }
+  //       return todo;
+  //     });
+  //     setTodos(updatedTodos);
+  //     console.log(todos);
+  //   },
+  //   [editedTask, todos]
+  // );
 
-  const handleAddTodo = (todo: Todo): void => {
-    const updatedTodos = [...todos, todo];
-    setTodos(updatedTodos);
-    setTask("");
-    console.log(updatedTodos);
-  };
+  const handleAddTodo = useCallback(
+    (todo: Todo): void => {
+      const updatedTodos = [...todos, todo];
+      setTodos(updatedTodos);
+      setTask("");
+      console.log(updatedTodos);
+    },
+    [todos]
+  );
   const openCloseModal = () => {
     setShowModal((prev: any) => !prev);
   };
@@ -77,18 +83,18 @@ export const Landing = () => {
     setStatus(value);
     console.log(value);
   };
-
+  console.log("landing");
   return (
     <div>
       {
         <>
           <div className="landingP">
             <button
-              className="btn-add-task w-full flex flex-col sm:flex-row flex-wrap sm:flex-nowrap py-4 flex-grow  active:bg-pink-600   shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="btn-add-task  h-14 sm:flex-row flex sm:flex-nowrap py-4 flex-grow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               onClick={openCloseModal}
             >
-              <span className="text-3xl  py-0.75 "> +</span>
-              <span className=" px-3 py-2 text-1xl ">Add Task</span>
+              <span className="text-3xl  pb-3 "> +</span>
+              <span className=" px-3  pb-4 text-1xl ">Add Task</span>
             </button>
             {showModal ? (
               <>
@@ -115,7 +121,7 @@ export const Landing = () => {
             ) : null}
           </div>
           <div>
-            <div className="absolute left-14 top-20">
+            <div className="absolute left-14 top-20 hover:shadow-lg">
               <button
                 className="btn-Todo"
                 value="uncomplete"
@@ -124,7 +130,7 @@ export const Landing = () => {
                 To Do
               </button>
             </div>
-            <div className="absolute left-44 top-20 ">
+            <div className="absolute left-44 top-20 hover:shadow-lg">
               <button
                 className="btn-Todo"
                 value="completed"
@@ -143,25 +149,14 @@ export const Landing = () => {
             <hr className="bg-black" />
           </div>
 
-          <div className=" flex pt-96 lg:gap-x-20 xl:gap-x-16 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-16 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between ">
-            <div className="  pt-14 md:pr-2 lg:pr-24">
-              <span className="w-7 text-righ justify-start lg:pl-10 pt-14 xl:pl-28 md:pr-2 ">
-                {" "}
-                Tasks
-              </span>
+          <div className=" flex pt-96 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between ">
+            <div className="  pt-14 md:pr-2 ">
+              <span className="w-7 text-righ justify-start "> Tasks</span>
             </div>
-            <span className="text-right  pt-14 pl-3 pr-7 lg:pr-10 xl:pr-36 md:pr-0 xl:pl-0">
-              {" "}
-              Status
-            </span>
-            <span className=" text-right  pt-14  pl-2 pr-2 xl:pl-0 lg:pl-20 xl:pr-0 md:pr-4 md:pl-0 ">
-              {" "}
-              Date
-            </span>
-            <span className="text-right   pt-14 pr-2 md:pr-20 md:pl-16 xl:pl-20 lg:pr-48">
-              {" "}
-              Time
-            </span>
+            <span className="text-right  pt-14 pl-3 "> Status</span>
+            <span className=" text-right  pt-14  pl-2 pr-2"> Date</span>
+            <span className="text-right   pt-14 pr-2 "> Time</span>
+            <span className="text-right   pt-14 pr-2"> </span>
           </div>
 
           <div className=" bg-center h-screen flex justify-end items-center  ">
@@ -173,30 +168,14 @@ export const Landing = () => {
                       ? (e) => e.isCompleted === false
                       : (e) => e.isCompleted === true
                   )
-                  .map((todo) => (
+                  .map((todo, id) => (
                     <Row
+                      key={id}
                       setEditedStatus={setEditedStatus}
                       editedStatus={editedStatus}
-                      handleChangeStatus={handleChangeStatus}
-                      handleDateChanges={handleDateChanges}
-                      editedTodo={editedTodo}
-                      setEditedTodo={setEditedTodo}
-                      key={todo.id}
                       todo={todo}
                       // handleDeleteTodo={handleDeleteTodo}
                       handleCheckTodo={handleCheckTodo}
-                      status={todo.status}
-                      task={task}
-                      date={date}
-                      setStatus={setStatus}
-                      setTask={setTask}
-                      handleAddTodo={handleAddTodo}
-                      showModal={showModal}
-                      onBackDropClick={openCloseModal}
-                      setDate={setDate}
-                      setTime={setTime}
-                      time={time}
-                      submitEdits={submitEdits}
                       todos={todos}
                       setTodos={setTodos}
                       editedTask={editedTask}
@@ -205,7 +184,8 @@ export const Landing = () => {
                       setEditedTime={setEditedTime}
                       editedDate={editedDate}
                       editedTime={editedTime}
-                      handelTimeChanges={handelTimeChanges}
+                      setTime={setTime}
+                      setDate={setDate}
                     />
                   ))}
 
@@ -222,4 +202,4 @@ export const Landing = () => {
       }
     </div>
   );
-};
+});

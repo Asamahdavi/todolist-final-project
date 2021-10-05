@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { AddTodo } from "./AddModal";
 import { BaseModalWrapperProps } from "./types/fileTypes";
 
@@ -45,4 +45,4 @@ const BaseAddModalWrapper: React.FC<BaseModalWrapperProps> = ({
     </>
   );
 };
-export default BaseAddModalWrapper;
+export default memo(BaseAddModalWrapper);

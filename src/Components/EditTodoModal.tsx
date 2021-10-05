@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { EditTodoProps } from "./types/fileTypes";
-import { FormEvent } from "react";
+import { FormEvent, memo, useCallback } from "react";
 import React from "react";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { TimePickerComponent } from "./TimePickerComponent";
@@ -8,16 +8,12 @@ import moment from "moment";
 import { StatusDropDownComponent } from "./StatusDropDownComponent";
 const EditTodoModal: React.FC<EditTodoProps> = ({
   onBackDropClick,
-  handleAddTodo,
   children,
-  setTask,
-  todo: { id, task },
+  todo: { id, task, status },
   setTodos,
   todos,
   editedTask,
   setEditedTask,
-  editedTodo,
-  setEditedTodo,
   todo,
   setTime,
   time,
@@ -29,20 +25,66 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   setEditedTime,
   setEditedStatus,
   editedStatus,
-  status,
 }) => {
+  console.log("edit");
+
   const handleDateChanges = (date: moment.Moment | null | undefined) => {
     let formattedDate = moment(date).format("LL");
     setEditedDate(formattedDate);
   };
 
+  // const handleDateChanges = useCallback(
+  //   (date: moment.Moment | null | undefined) => {
+  //     let formattedDate = moment(date).format("LL");
+  //     setEditedDate(formattedDate);
+  //   },
+  //   [setEditedDate]
+  // );
   const handelTimeChanges = (time: moment.Moment | null | undefined) => {
     let formattedTime = moment(time).format("HH:mm:ss");
     setEditedTime(formattedTime);
   };
+  // const handelTimeChanges = useCallback(
+  //   (time: moment.Moment | null | undefined) => {
+  //     let formattedTime = moment(time).format("HH:mm:ss");
+  //     setEditedTime(formattedTime);
+  //   },
+  //   [setEditedTime]
+  // );
   const handelStatusChanges = (value: any) => {
     setEditedStatus(value);
   };
+  // const handelStatusChanges = useCallback(
+  //   (value: any) => {
+  //     setEditedStatus(value);
+  //   },
+  //   [setEditedStatus]
+  // );
+  const handelTaskChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedTask(e.target.value);
+  };
+  // const handelTaskChanges = useCallback(
+  //   (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     setEditedTask(e.target.value);
+  //   },
+  //   [setEditedTask]
+  // );
+
+  // const submitEdits = useCallback(
+  //   (id: string) => {
+  //     const updatedTodos = [...todos].map((todo) => {
+  //       if (todo.id === id) {
+  //         todo.task = editedTask;
+  //         todo.date = editedDate;
+  //         todo.time = editedTime;
+  //         todo.status = editedStatus;
+  //       }
+  //       return todo;
+  //     });
+  //     setTodos(updatedTodos);
+  //   },
+  //   [editedDate, editedStatus, editedTask, editedTime, setTodos, todos]
+  // );
   function submitEdits(id: string) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
@@ -83,7 +125,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
           <input
             type="text"
             name="task"
-            onChange={(e) => setEditedTask(e.target.value)}
+            onChange={handelTaskChanges}
             value={editedTask}
             className="bg-transparent text-gray-900 border-none w-full h-24"
             placeholder=". . ."
@@ -91,22 +133,8 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
         </div>
         <div className=" flex  p-4  justify-center">
           <div className="w-full">
-            <TimePickerComponent
-              handelTimeChanges={handelTimeChanges}
-              date={date}
-              setDate={setDate}
-              time={editedTime}
-              setTime={setTime}
-              handleDateChanges={handleDateChanges}
-            />
-            <DatePickerComponent
-              handelTimeChanges={handelTimeChanges}
-              handleDateChanges={handleDateChanges}
-              date={editedDate}
-              setDate={setDate}
-              time={time}
-              setTime={setTime}
-            />
+            <TimePickerComponent handelTimeChanges={handelTimeChanges} />
+            <DatePickerComponent handleDateChanges={handleDateChanges} />
           </div>
           <div className="w-2/6  pl-2 pr-2 ">
             <StatusDropDownComponent handleChangeStatus={handelStatusChanges} />
@@ -139,4 +167,4 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
     document.getElementById("modal-root")!
   );
 };
-export default EditTodoModal;
+export default memo(EditTodoModal);
