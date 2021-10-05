@@ -1,4 +1,5 @@
 import { Landing } from "./Components/Landing";
+
 import "./style.css";
 
 function App() {

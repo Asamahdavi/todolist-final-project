@@ -4,6 +4,8 @@ import { FormEvent } from "react";
 import React from "react";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { TimePickerComponent } from "./TimePickerComponent";
+import moment from "moment";
+import { StatusDropDownComponent } from "./StatusDropDownComponent";
 const EditTodoModal: React.FC<EditTodoProps> = ({
   onBackDropClick,
   handleAddTodo,
@@ -21,13 +23,33 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   time,
   date,
   setDate,
+  editedDate,
+  editedTime,
+  setEditedDate,
+  setEditedTime,
+  setEditedStatus,
+  editedStatus,
+  status,
 }) => {
-  //   let now = new Date().toLocaleDateString();
+  const handleDateChanges = (date: moment.Moment | null | undefined) => {
+    let formattedDate = moment(date).format("LL");
+    setEditedDate(formattedDate);
+  };
 
+  const handelTimeChanges = (time: moment.Moment | null | undefined) => {
+    let formattedTime = moment(time).format("HH:mm:ss");
+    setEditedTime(formattedTime);
+  };
+  const handelStatusChanges = (value: any) => {
+    setEditedStatus(value);
+  };
   function submitEdits(id: string) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
         todo.task = editedTask;
+        todo.date = editedDate;
+        todo.time = editedTime;
+        todo.status = editedStatus;
       }
       return todo;
     });
@@ -36,6 +58,9 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   const handleSubmitTodo = (e: FormEvent): void => {
     e.preventDefault();
     task = editedTask;
+    time = editedTime;
+    date = editedDate;
+    status = editedStatus;
     setTodos([...todos]);
     onBackDropClick();
   };
@@ -67,35 +92,38 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
         <div className=" flex  p-4  justify-center">
           <div className="w-full">
             <TimePickerComponent
+              handelTimeChanges={handelTimeChanges}
               date={date}
               setDate={setDate}
-              time={time}
+              time={editedTime}
               setTime={setTime}
+              handleDateChanges={handleDateChanges}
             />
             <DatePickerComponent
-              date={date}
+              handelTimeChanges={handelTimeChanges}
+              handleDateChanges={handleDateChanges}
+              date={editedDate}
               setDate={setDate}
               time={time}
               setTime={setTime}
             />
           </div>
-          <div className="w-2/6  pl-2 pr-2 "></div>
+          <div className="w-2/6  pl-2 pr-2 ">
+            <StatusDropDownComponent handleChangeStatus={handelStatusChanges} />
+          </div>
         </div>
         <div className="flex  pb-8 justify-end">
-          {" "}
           <div className="p-1">
             <button
               type="button"
               className=" rounded-sm bg-blue-500 w-32  text-white pt-2 pb-2 pl-7 pr-7 "
               onClick={onBackDropClick}
             >
-              {" "}
               Cancel
             </button>
           </div>
           <div className="p-1">
             <button
-              // onClick={submitEdits(id)}
               type="submit"
               className="rounded-sm bg-blue-500 w-32  text-white pt-2 pb-2 pl-7 pr-7 "
               onClick={() => submitEdits(todo.id)}

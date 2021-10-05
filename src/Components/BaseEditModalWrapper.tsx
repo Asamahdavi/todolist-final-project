@@ -22,6 +22,15 @@ const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
   editedTodo,
   setEditedTodo,
   todo,
+  handelTimeChanges,
+  editedDate,
+  editedTime,
+  setEditedDate,
+  setEditedTime,
+  handleDateChanges,
+  handleChangeStatus,
+  setEditedStatus,
+  editedStatus,
 }) => {
   if (!showModal) {
     return null;
@@ -29,6 +38,13 @@ const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
   return (
     <>
       <EditTodoModal
+        setEditedStatus={setEditedStatus}
+        editedStatus={editedStatus}
+        handleChangeStatus={handleChangeStatus}
+        editedDate={editedDate}
+        setEditedDate={setEditedDate}
+        setEditedTime={setEditedTime}
+        editedTime={editedTime}
         editedTodo={editedTodo}
         setEditedTodo={setEditedTodo}
         todos={todos}
@@ -49,6 +65,7 @@ const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
         submitEdits={submitEdits}
         setEditedTask={setEditedTask}
         editedTask={editedTask}
+        handleDateChanges={handleDateChanges}
       />
     </>
   );

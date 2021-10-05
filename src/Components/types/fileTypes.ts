@@ -1,6 +1,6 @@
 export type Todo = {
   id: string;
-  status: string;
+  status: any;
   task: string;
   isCompleted: boolean;
   date?: string | null | undefined;
@@ -13,6 +13,10 @@ export type TodoType = {
   isCompleted: boolean;
 };
 export type EditTodoProps = {
+  editedStatus: any;
+  setEditedStatus: (editedStatus: any) => void;
+  handleChangeStatus: (value: any) => void;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
   setEditedTodo: (todo: Todo | undefined | null) => void;
   editedTodo: Todo | undefined | null;
   todos: Todo[];
@@ -26,22 +30,31 @@ export type EditTodoProps = {
   setTime: (time: string | null | undefined) => void;
   setDate: (date: string | null | undefined) => void;
   isCompleted: boolean;
-  status: string;
+  status: any;
   date: string | null | undefined;
-  setStatus: (status: string) => void;
+  setStatus: (status: any) => void;
   task: string;
   setTask: (task: string) => void;
   handleAddTodo: (Todo: Todo) => void;
   onBackDropClick: () => void;
+  setEditedTime: (time: string | null | undefined) => void;
+  setEditedDate: (date: string | null | undefined) => void;
+  editedDate: string | null | undefined;
+  editedTime: string | null | undefined;
 };
 // AddModal types
 export type addModal = {
+  editedStatus: any;
+  setEditedStatus: (editedStatus: any) => void;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
+  handleChangeStatus: (value: any) => void;
+  handelTimeChanges: (time: moment.Moment | null | undefined) => void;
   handleAddTodo: (Todo: Todo) => void;
   onBackDropClick: () => void;
-  setStatus: (status: string) => void;
+  setStatus: (status: any) => void;
   task: string;
   setTask: (task: string) => void;
-  status: string;
+  status: any;
   date: string | null | undefined;
   time: string | null | undefined;
   setTime: (time: string | null | undefined) => void;
@@ -49,20 +62,29 @@ export type addModal = {
 };
 //Row component Types
 export type RowProps = {
+  editedStatus: any;
+  setEditedStatus: (editedStatus: any) => void;
+  setEditedTime: (time: string | null | undefined) => void;
+  setEditedDate: (date: string | null | undefined) => void;
+  editedDate: string | null | undefined;
+  editedTime: string | null | undefined;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
+  handleChangeStatus: (value: any) => void;
+  handelTimeChanges: (time: moment.Moment | null | undefined) => void;
   setEditedTodo: (todo: Todo | undefined | null) => void;
   editedTodo: Todo | undefined | null;
   todo: Todo;
   todos: Todo[];
   setTodos: (todo: Todo[]) => void;
   submitEdits: (id: string) => void;
-  status: string;
+  status: any;
   handleCheckTodo: (id: string) => void;
   showModal: boolean;
   onBackDropClick: () => void;
   setTask: (Task: string) => void;
   task: string;
   handleAddTodo: (Todo: Todo) => void;
-  setStatus: (status: string) => void;
+  setStatus: (status: any) => void;
   date: string | null | undefined;
   time: string | null | undefined;
   setTime: (time: string | null | undefined) => void;
@@ -77,15 +99,24 @@ export type BaseModalWrapperProps = {
   setTask: (Task: string) => void;
   task: string;
   handleAddTodo: (Todo: Todo) => void;
-  status: string;
-  setStatus: (status: string) => void;
+  status: any;
+  setStatus: (status: any) => void;
   date: string | null | undefined;
   time: string | null | undefined;
   setTime: (time: string | null | undefined) => void;
   setDate: (date: string | null | undefined) => void;
+  handelTimeChanges: (time: moment.Moment | null | undefined) => void;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
+  handleChangeStatus: (value: any) => void;
+  editedStatus: any;
+  setEditedStatus: (editedStatus: any) => void;
 };
 //BaseEditModalWrapper types
 export type BaseEditModalWrapperProps = {
+  setEditedTime: (time: string | null | undefined) => void;
+  setEditedDate: (date: string | null | undefined) => void;
+  editedDate: string | null | undefined;
+  editedTime: string | null | undefined;
   showModal: boolean;
   todos: Todo[];
   setTodos: (todo: Todo[]) => void;
@@ -93,8 +124,8 @@ export type BaseEditModalWrapperProps = {
   setTask: (Task: string) => void;
   task: string;
   handleAddTodo: (Todo: Todo) => void;
-  status: string;
-  setStatus: (status: string) => void;
+  status: any;
+  setStatus: (status: any) => void;
   date: string | null | undefined;
   time: string | null | undefined;
   setTime: (time: string | null | undefined) => void;
@@ -104,8 +135,13 @@ export type BaseEditModalWrapperProps = {
   editedTask: string;
   setEditedTodo: (todo: Todo | undefined | null) => void;
   editedTodo: Todo | undefined | null;
+  editedStatus: any;
+  setEditedStatus: (editedStatus: any) => void;
   id: string;
   todo: Todo;
+  handelTimeChanges: (time: moment.Moment | null | undefined) => void;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
+  handleChangeStatus: (value: any) => void;
 };
 
 //date Picker types
@@ -115,4 +151,10 @@ export type DatePickerProps = {
   setTime: (time: string | null | undefined) => void;
   setDate: (date: string | null | undefined) => void;
   date: string | null | undefined;
+  handelTimeChanges: (time: moment.Moment | null | undefined) => void;
+  handleDateChanges: (date: moment.Moment | null | undefined) => void;
+};
+// dropdown status selector type
+export type StatusProps = {
+  handleChangeStatus: (value: any) => void;
 };

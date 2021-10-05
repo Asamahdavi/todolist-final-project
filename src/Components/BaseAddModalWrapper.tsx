@@ -14,6 +14,11 @@ const BaseAddModalWrapper: React.FC<BaseModalWrapperProps> = ({
   setDate,
   setTime,
   time,
+  handelTimeChanges,
+  handleDateChanges,
+  handleChangeStatus,
+  setEditedStatus,
+  editedStatus,
 }) => {
   if (!showModal) {
     return null;
@@ -21,6 +26,11 @@ const BaseAddModalWrapper: React.FC<BaseModalWrapperProps> = ({
   return (
     <>
       <AddTodo
+        setEditedStatus={setEditedStatus}
+        editedStatus={editedStatus}
+        handleChangeStatus={handleChangeStatus}
+        handleDateChanges={handleDateChanges}
+        handelTimeChanges={handelTimeChanges}
         handleAddTodo={handleAddTodo}
         onBackDropClick={onBackDropClick}
         setStatus={setStatus}

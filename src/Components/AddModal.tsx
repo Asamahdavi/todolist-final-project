@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { addModal } from "./types/fileTypes";
 import { ChangeEvent, FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { StatusDropDownComponent } from "./StatusDropDownComponent";
 import { TimePickerComponent } from "./TimePickerComponent";
 import { DatePickerComponent } from "./DatePickerComponent";
 
@@ -18,6 +19,9 @@ export const AddTodo: React.FC<addModal> = ({
   time,
   setTime,
   setDate,
+  handelTimeChanges,
+  handleDateChanges,
+  handleChangeStatus,
 }) => {
   // let now = new Date().toLocaleTimeString;
 
@@ -67,12 +71,16 @@ export const AddTodo: React.FC<addModal> = ({
         <div className="  flex  p-2  justify-center">
           <div className="w-full">
             <TimePickerComponent
+              handleDateChanges={handleDateChanges}
               date={date}
+              handelTimeChanges={handelTimeChanges}
               setDate={setDate}
               time={time}
               setTime={setTime}
             />
             <DatePickerComponent
+              handleDateChanges={handleDateChanges}
+              handelTimeChanges={handelTimeChanges}
               date={date}
               setDate={setDate}
               time={time}
@@ -80,7 +88,7 @@ export const AddTodo: React.FC<addModal> = ({
             />
           </div>
           <div className="w-2/6  pl-2 pr-2  pt-4">
-            {/* <Status setStatus={setStatus} /> */}
+            <StatusDropDownComponent handleChangeStatus={handleChangeStatus} />
           </div>
         </div>
         <div className="flex  pb-8 justify-end">

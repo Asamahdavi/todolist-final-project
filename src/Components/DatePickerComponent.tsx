@@ -9,13 +9,13 @@ export const DatePickerComponent = ({
   setDate,
   date,
   time,
+  handleDateChanges,
 }: DatePickerProps) => {
   const d = new Date();
-  const handleDateChanges = (date: moment.Moment | null | undefined) => {
-    let formattedDate = moment(date).format("LL");
-    setDate(formattedDate);
-    console.log(formattedDate);
-  };
+  // const handleDateChanges = (date: moment.Moment | null | undefined) => {
+  //   let formattedDate = moment(date).format("LL");
+  //   setDate(formattedDate);
+  // };
   const stringValue = moment(d).format("LL");
   const dateFormat = "LL";
 
