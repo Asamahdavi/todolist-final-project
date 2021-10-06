@@ -35,8 +35,8 @@ export const Row = memo(
      flex w-full p-4 mb-2 justify-between 
        ${
          isCompleted
-           ? "bg-gray-400 border-b-2 h-20"
-           : "bg-gray-50 border-b-2 h-20"
+           ? "bg-purple-100 shadow-md h-20"
+           : "bg-white shadow-sm border-b-2 h-20"
        }
       `}
       >
@@ -50,16 +50,29 @@ export const Row = memo(
         </div>
         <div
           className={`  flex  truncate   w-full 
-          ${isCompleted ? "text-white" : "text-gray-800"}
+          ${isCompleted ? "text-gray-800" : "text-gray-700"}
         `}
         >
-          <span className=" w-1/5 text-center">{task}</span>
-          <div className=" w-1/5 text-center">
-            <span className=" w-1/5 text-center">{status}</span>
+          <span className=" w-1/5 pt-3 text-center">{task}</span>
+          <div className=" w-1/5 text-center pt-3 rounded-full ">
+            <span
+              className={`shadow-sm w-1/2 p-3 text-center rounded-full text-white
+              ${
+                isCompleted
+                  ? "bg-purple-700 hover:bg-purple-500 hover:text-gray-700"
+                  : `${
+                      status === "Pause"
+                        ? "bg-red-700 hover:bg-red-500 hover:text-gray-700 px-7"
+                        : "bg-blue-500 hover:bg-blue-400 hover:text-gray-700"
+                    } `
+              } `}
+            >
+              {status}
+            </span>
           </div>
 
-          <span className="  w-1/5 text-center">{date}</span>
-          <span className="  w-1/5  text-center">{time}</span>
+          <span className="  w-1/5 pt-3 text-center">{date}</span>
+          <span className="  w-1/5 pt-3 text-center">{time}</span>
 
           <div className="w-1/5 pl-2 flex justify-evenly text-center items-center mr-1">
             <div>

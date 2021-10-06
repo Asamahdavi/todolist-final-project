@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { EditTodoProps } from "./types/fileTypes";
-import { FormEvent, memo, useCallback } from "react";
+import { FormEvent, memo } from "react";
 import React from "react";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { TimePickerComponent } from "./TimePickerComponent";
@@ -88,9 +88,13 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   function submitEdits(id: string) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
-        todo.task = editedTask;
-        todo.date = editedDate;
-        todo.time = editedTime;
+        if (editedTask) {
+          todo.task = editedTask;
+        } else if (editedDate) {
+          todo.date = editedDate;
+        } else if (editedTime) {
+          todo.time = editedTime;
+        }
         todo.status = editedStatus;
       }
       return todo;

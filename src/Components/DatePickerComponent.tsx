@@ -14,6 +14,7 @@ export const DatePickerComponent = memo(
     return (
       <div ref={nodeRef}>
         <DatePicker
+          inputReadOnly={true}
           defaultValue={moment(stringValue, dateFormat)}
           format={dateFormat}
           onChange={handleDateChanges}

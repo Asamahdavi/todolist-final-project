@@ -17,7 +17,7 @@ export const Landing = memo(() => {
   );
   const formattedDate = moment(dateNow).format("HH:mm:ss");
   const [time, setTime] = useState<string | null | undefined>(formattedDate);
-  const [status, setStatus] = useState<any>();
+  const [status, setStatus] = useState<any>("In Progress");
   const [editedTask, setEditedTask] = useState("");
   const [editedTime, setEditedTime] = useState<string | null | undefined>();
   const [editedDate, setEditedDate] = useState<string | null | undefined>();
@@ -121,18 +121,18 @@ export const Landing = memo(() => {
             ) : null}
           </div>
           <div>
-            <div className="absolute left-14 top-20 hover:shadow-lg">
+            <div className="absolute left-14 top-20">
               <button
-                className="btn-Todo"
+                className="btn-Todo  hover:shadow-lg  hover:bg-gray-200 focus:bg-gray-200"
                 value="uncomplete"
                 onClick={() => setTruevalue(true)}
               >
                 To Do
               </button>
             </div>
-            <div className="absolute left-44 top-20 hover:shadow-lg">
+            <div className="absolute left-44 top-20 ">
               <button
-                className="btn-Todo"
+                className="btn-Todo  hover:shadow-lg  hover:bg-gray-200 focus:bg-gray-200"
                 value="completed"
                 onClick={() => setTruevalue(false)}
               >
