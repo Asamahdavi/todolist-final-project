@@ -54,6 +54,7 @@ export type addModal = {
 //Row component Types
 export type RowProps = {
   editedStatus: any;
+  handleDeleteTodo: (id: string) => void;
   setEditedStatus: (editedStatus: any) => void;
   setEditedTime: (time: string | null | undefined) => void;
   setEditedDate: (date: string | null | undefined) => void;

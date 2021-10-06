@@ -22,6 +22,7 @@ export const Row = memo(
     setEditedTime,
     setEditedStatus,
     editedStatus,
+    handleDeleteTodo,
   }: RowProps) => {
     console.log("row");
     const [showModal, setShowModal] = useState(false);
@@ -112,6 +113,7 @@ export const Row = memo(
             <button
               aria-label="Delete a todo"
               className="h-5 w-5 flex justify-center items-center hover:bg-gray-200 font-bold  rounded"
+              onClick={() => handleDeleteTodo(id)}
             >
               <img src={ic} alt="" />
             </button>

@@ -40,6 +40,10 @@ export const Landing = memo(() => {
   }, [todos]);
 
   const handleCheckTodo = (id: string) => {};
+  const handleDeleteTodo = (id: string): void => {
+    const updatedTodos = todos.filter((todo: { id: string }) => todo.id !== id);
+    setTodos(updatedTodos);
+  };
 
   // const submitEdits = useCallback(
   //   (id: string) => {
@@ -174,7 +178,7 @@ export const Landing = memo(() => {
                       setEditedStatus={setEditedStatus}
                       editedStatus={editedStatus}
                       todo={todo}
-                      // handleDeleteTodo={handleDeleteTodo}
+                      handleDeleteTodo={handleDeleteTodo}
                       handleCheckTodo={handleCheckTodo}
                       todos={todos}
                       setTodos={setTodos}
