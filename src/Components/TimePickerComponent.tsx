@@ -13,18 +13,12 @@ export const TimePickerComponent = memo(
     return (
       <div ref={nodeRef}>
         <TimePicker
+          className="h-auto w-28 cursor-pointer text-base m-0 p-1"
           defaultValue={moment(stringTime, "HH:mm:ss")}
           onChange={handelTimeChanges}
           suffixIcon
           style={{
-            height: "auto",
-            width: "auto",
-            border: "none",
-            borderRadius: "0px",
-            cursor: "pointer",
-            fontSize: "17px",
-            margin: "0px",
-            padding: "0px",
+            borderRadius: "2px",
           }}
         ></TimePicker>
       </div>

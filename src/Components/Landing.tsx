@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { Row } from "./Row";
+
 import { data } from "./types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
 import { Todo } from "./types/fileTypes";
@@ -39,7 +40,27 @@ export const Landing = memo(() => {
     localStorage.setItem("todos", json);
   }, [todos]);
 
-  const handleCheckTodo = (id: string) => {};
+  const handleCheckTodo = (id: string) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id && todo.isCompleted !== true) {
+        return {
+          ...todo,
+          isCompleted: !todo.isCompleted,
+          status: "Completed",
+          Completed: todo.status,
+        };
+      } else if (todo.id === id && todo.isCompleted === true) {
+        return {
+          ...todo,
+          isCompleted: !todo.isCompleted,
+          status: "In Progress",
+          "In Progress": todo.status,
+        };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
   const handleDeleteTodo = (id: string): void => {
     const updatedTodos = todos.filter((todo: { id: string }) => todo.id !== id);
     setTodos(updatedTodos);
@@ -153,7 +174,7 @@ export const Landing = memo(() => {
             <hr className="bg-black" />
           </div>
 
-          <div className=" flex pt-96 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between ">
+          <div className=" flex pt-40 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between ">
             <div className="  pt-14 md:pr-2 ">
               <span className="w-7 text-righ justify-start "> Tasks</span>
             </div>

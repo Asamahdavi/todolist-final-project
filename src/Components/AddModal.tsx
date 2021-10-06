@@ -67,15 +67,20 @@ export const AddTodo: React.FC<addModal> = memo(
               placeholder="New Task..."
             />
           </div>
-          <div className="  flex  p-2  justify-center">
-            <div className="w-full">
-              <TimePickerComponent handelTimeChanges={handelTimeChanges} />
-              <DatePickerComponent handleDateChanges={handleDateChanges} />
-            </div>
-            <div className="w-2/6  pl-2 pr-2  pt-4">
-              <StatusDropDownComponent
-                handleChangeStatus={handleChangeStatus}
-              />
+          <div className=" flex  p-4  justify-center ">
+            <div className=" w-full flex lg:grid lg:grid-flow-col lg:space-x-2 lg:justify-start sm:grid sm: grid-col sm:justify-items-start sm:space-x-0  ">
+              <div className="w-1/5 ">
+                <DatePickerComponent handleDateChanges={handleDateChanges} />
+              </div>
+              <div className="w-1/6 ">
+                <TimePickerComponent handelTimeChanges={handelTimeChanges} />
+              </div>
+              <div className="w-1/5 ">
+                <StatusDropDownComponent
+                  handleChangeStatus={handleChangeStatus}
+                />
+              </div>
+              <div className="w-1/5"></div>
             </div>
           </div>
           <div className="flex  pb-8 justify-end">

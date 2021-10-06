@@ -14,21 +14,13 @@ export const DatePickerComponent = memo(
     return (
       <div ref={nodeRef}>
         <DatePicker
+          className="h-auto w-28 cursor-pointer text-base m-0 p-1 "
           inputReadOnly={true}
           defaultValue={moment(stringValue, dateFormat)}
           format={dateFormat}
           onChange={handleDateChanges}
           suffixIcon
-          style={{
-            height: "auto",
-            width: "auto",
-            border: "none",
-            borderRadius: "0px",
-            cursor: "pointer",
-            fontSize: "17px",
-            margin: "0px",
-            padding: "0px",
-          }}
+          style={{ borderRadius: "2px" }}
         />
       </div>
     );

@@ -9,7 +9,7 @@ import { StatusDropDownComponent } from "./StatusDropDownComponent";
 const EditTodoModal: React.FC<EditTodoProps> = ({
   onBackDropClick,
   children,
-  todo: { id, task, status },
+  todo: { id, task, status, isCompleted },
   setTodos,
   todos,
   editedTask,
@@ -52,7 +52,11 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   //   [setEditedTime]
   // );
   const handelStatusChanges = (value: any) => {
-    setEditedStatus(value);
+    if (isCompleted) {
+      setEditedStatus("Completed");
+    } else {
+      setEditedStatus(value);
+    }
   };
   // const handelStatusChanges = useCallback(
   //   (value: any) => {
@@ -115,33 +119,42 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
     <form
       onSubmit={handleSubmitTodo}
       onClick={onBackDropClick}
-      className="  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none h-screen flex items-center justify-center "
+      className=" shadow-sm overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none h-screen flex items-center justify-center "
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-2/4 rounded-lg shadow-lg bg-gray-100 text-blue-500 "
+        className="w-2/4 rounded-lg  bg-white "
       >
-        <div className="p-4 pl-6 shadow-md">
-          <span className="justify-center items-center">Add Your New Task</span>
+        <div className="p-4 pl-6 shadow-sm ">
+          <span className="justify-center items-center text-blue-500">
+            Add Your New Task
+          </span>
         </div>
 
-        <div className="relative p-4  ">
+        <div className="relative p-4 ">
           <input
             type="text"
             name="task"
             onChange={handelTaskChanges}
             value={editedTask}
-            className="bg-transparent text-gray-900 border-none w-full h-24"
+            className="bg-transparent border-none shadow-sm text-gray-900  w-full h-24 focus:bg-gray-50"
             placeholder=". . ."
           />
         </div>
-        <div className=" flex  p-4  justify-center">
-          <div className="w-full">
-            <TimePickerComponent handelTimeChanges={handelTimeChanges} />
-            <DatePickerComponent handleDateChanges={handleDateChanges} />
-          </div>
-          <div className="w-2/6  pl-2 pr-2 ">
-            <StatusDropDownComponent handleChangeStatus={handelStatusChanges} />
+        <div className=" flex  p-4  justify-center ">
+          <div className="w-full flex lg:grid lg:grid-flow-col lg:space-x-2 lg:justify-start sm:grid sm: grid-col sm:justify-items-start sm:space-x-0  ">
+            <div className="w-1/5 ">
+              <DatePickerComponent handleDateChanges={handleDateChanges} />
+            </div>
+            <div className="w-1/6 ">
+              <TimePickerComponent handelTimeChanges={handelTimeChanges} />
+            </div>
+            <div className="w-1/5 ">
+              <StatusDropDownComponent
+                handleChangeStatus={handelStatusChanges}
+              />
+            </div>
+            s<div className="w-1/5"></div>
           </div>
         </div>
         <div className="flex  pb-8 justify-end">
