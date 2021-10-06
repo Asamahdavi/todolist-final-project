@@ -57,13 +57,13 @@ export const Row = memo(
           <span className=" w-1/5 pt-3 text-center">{task}</span>
           <div className=" w-1/5 text-center pt-3 rounded-full ">
             <span
-              className={`shadow-sm w-1/2 p-3 text-center rounded-full text-white
+              className={`shadow-sm w-1/2 p-3 text-center  text-sm rounded-full text-white
               ${
                 isCompleted
                   ? "bg-purple-700 hover:bg-purple-500 hover:text-gray-700"
                   : `${
                       status === "Pause"
-                        ? "bg-red-700 hover:bg-red-500 hover:text-gray-700 px-7"
+                        ? "bg-orange hover:bg-lightOrange hover:text-gray-700 px-7"
                         : "bg-blue-500 hover:bg-blue-400 hover:text-gray-700"
                     } `
               } `}

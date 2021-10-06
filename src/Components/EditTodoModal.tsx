@@ -123,7 +123,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-2/4 rounded-lg  bg-white "
+        className="w-2/4 rounded-lg  bg-white"
       >
         <div className="p-4 pl-6 shadow-sm ">
           <span className="justify-center items-center text-blue-500">
@@ -154,7 +154,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
                 handleChangeStatus={handelStatusChanges}
               />
             </div>
-            s<div className="w-1/5"></div>
+            <div className="w-1/5"></div>
           </div>
         </div>
         <div className="flex  pb-8 justify-end">

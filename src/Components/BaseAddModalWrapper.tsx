@@ -45,4 +45,4 @@ const BaseAddModalWrapper: React.FC<BaseModalWrapperProps> = ({
     </>
   );
 };
-export default memo(BaseAddModalWrapper);
+export default BaseAddModalWrapper;
