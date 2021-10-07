@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import EditTodoModal from "./EditTodoModal";
-import { BaseEditModalWrapperProps } from "./types/fileTypes";
+import { BaseEditModalWrapperProps } from "../types/fileTypes";
 
 const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
   onBackDropClick,
@@ -21,6 +21,7 @@ const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
   setEditedTime,
   setEditedStatus,
   editedStatus,
+  setStatus,
 }) => {
   if (!showModal) {
     return null;
@@ -28,6 +29,7 @@ const EditModalWrapper: React.FC<BaseEditModalWrapperProps> = ({
   return (
     <>
       <EditTodoModal
+        setStatus={setStatus}
         setEditedStatus={setEditedStatus}
         editedStatus={editedStatus}
         editedDate={editedDate}

@@ -1,10 +1,39 @@
 @tailwind base;
 @tailwind components;
 .btn-add-task {
-  @apply bg-blue-500 py-1 px-2 flex  text-white rounded;
+  @apply bg-blue-500 py-1 px-2 flex flex-grow  text-white rounded shadow-md  outline-none  h-14  mr-1 mb-1 ease-linear transition-all duration-150;
 }
+.btn-add-task:hover {
+  @apply shadow-lg;
+}
+.plusSign {
+  @apply text-3xl pt-0  my-1;
+}
+.addtext {
+  @apply px-3 py-3;
+}
+.baseModalLanding {
+  @apply opacity-25 fixed inset-0 z-40 bg-black;
+}
+
+@screen sm {
+  btn-add-task {
+    @applay flex-nowrap flex-row;
+  }
+}
+
 .btn-Todo {
   @apply bg-white py-3 px-9  flex  text-blue-500 rounded border-2;
+}
+.btn-Todo:hover {
+  @apply shadow-lg bg-gray-200;
+}
+
+.btn-Todo:focus {
+  @apply bg-gray-200;
+}
+.btn-TodoStyle {
+  @apply absolute  top-20;
 }
 .btn-dateFilters {
   @apply flex-1 bg-white py-2 px-6 flex text-xs text-blue-500;
@@ -13,11 +42,5 @@
 .landingP {
   @apply absolute right-10 top-12;
 }
-
-/* @media (max-width: 640px) {
-  .btn-add-task {
-    @apply 
-  }
-} */
 
 @tailwind utilities;

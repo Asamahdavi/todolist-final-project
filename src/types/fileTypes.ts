@@ -14,6 +14,7 @@ export type TodoType = {
 };
 
 export type EditTodoProps = {
+  setStatus: (status: any) => void;
   editedStatus: any;
   setEditedStatus: (editedStatus: any) => void;
   todos: Todo[];
@@ -53,6 +54,7 @@ export type addModal = {
 };
 //Row component Types
 export type RowProps = {
+  setStatus: (status: any) => void;
   editedStatus: any;
   handleDeleteTodo: (id: string) => void;
   setEditedStatus: (editedStatus: any) => void;
@@ -68,6 +70,7 @@ export type RowProps = {
   setDate: (date: string | null | undefined) => void;
   setEditedTask: (editedTask: string) => void;
   editedTask: string;
+  status: any;
 };
 //BaseAddModalWrapper types
 export type BaseModalWrapperProps = {
@@ -90,6 +93,7 @@ export type BaseModalWrapperProps = {
 };
 //BaseEditModalWrapper types
 export type BaseEditModalWrapperProps = {
+  setStatus: (status: any) => void;
   setEditedTime: (time: string | null | undefined) => void;
   setEditedDate: (date: string | null | undefined) => void;
   editedDate: string | null | undefined;
@@ -121,4 +125,52 @@ export type TimePickerProps = {
 // dropdown status selector type
 export type StatusProps = {
   handleChangeStatus: (value: any) => void;
+  setStatus: (status: any) => void;
+};
+//todolist component props
+export type TodolistProps = {
+  todosWeek: Todo[];
+  todosDay: Todo[];
+  filtering: number;
+  setStatus: (status: any) => void;
+  sortByWeek: () => void;
+  sortByDay: () => void;
+  setTruevalue: (value: boolean) => void;
+  trueValue: boolean;
+  setTodosWeek: (todosWeek: Todo[]) => void;
+  setTodosDay: (todosWeek: Todo[]) => void;
+  setFiltering: (filtering: number) => void;
+  editedStatus: any;
+  handleDeleteTodo: (id: string) => void;
+  setEditedStatus: (editedStatus: any) => void;
+  setEditedTime: (time: string | null | undefined) => void;
+  setEditedDate: (date: string | null | undefined) => void;
+  editedDate: string | null | undefined;
+  editedTime: string | null | undefined;
+  // todo: Todo;
+  todosMounth: Todo[];
+  todos: Todo[];
+  setTodos: (todo: Todo[]) => void;
+  handleCheckTodo: (id: string) => void;
+  setTime: (time: string | null | undefined) => void;
+  setDate: (date: string | null | undefined) => void;
+  setEditedTask: (editedTask: string) => void;
+  editedTask: string;
+  status: any;
+};
+export type FunctionProps = {
+  todosWeek: Todo[];
+  todosDay: Todo[];
+  todosMounth: Todo[];
+  todos: Todo[];
+  filtering: number;
+  setTruevalue: (value: boolean) => void;
+  trueValue: boolean;
+  setTodosWeek: (todosWeek: Todo[]) => void;
+  setTodosMounth: (todosMounth: Todo[]) => void;
+  setTodosDay: (todosDay: Todo[]) => void;
+  setFiltering: (filtering: number) => void;
+  setTodos: (todos: Todo[]) => void;
+  editedStatus: any;
+  id: string;
 };

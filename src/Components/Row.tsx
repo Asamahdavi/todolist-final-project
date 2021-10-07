@@ -1,4 +1,4 @@
-import { RowProps } from "./types/fileTypes";
+import { RowProps } from "../types/fileTypes";
 import editIcon from "../assets/editIcon.png";
 import ic from "../assets/icancel.png";
 
@@ -23,8 +23,8 @@ export const Row = memo(
     setEditedStatus,
     editedStatus,
     handleDeleteTodo,
+    setStatus,
   }: RowProps) => {
-    console.log("row");
     const [showModal, setShowModal] = useState(false);
     const openCloseModal = () => {
       setShowModal((prev: any) => !prev);
@@ -68,7 +68,7 @@ export const Row = memo(
                     } `
               } `}
             >
-              {status}
+              {todo.status}
             </span>
           </div>
 
@@ -87,6 +87,7 @@ export const Row = memo(
               {showModal ? (
                 <>
                   <BaseEditModalWrapper
+                    setStatus={setStatus}
                     setEditedStatus={setEditedStatus}
                     editedStatus={editedStatus}
                     todos={todos}

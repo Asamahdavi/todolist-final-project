@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { addModal } from "./types/fileTypes";
+import { addModal } from "../types/fileTypes";
 import { ChangeEvent, FormEvent, memo } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { StatusDropDownComponent } from "./StatusDropDownComponent";
@@ -16,6 +16,7 @@ export const AddTodo: React.FC<addModal> = memo(
     status,
     date,
     time,
+    setStatus,
     setTime,
     setDate,
     handelTimeChanges,
@@ -77,6 +78,7 @@ export const AddTodo: React.FC<addModal> = memo(
               </div>
               <div className="w-1/5 ">
                 <StatusDropDownComponent
+                  setStatus={setStatus}
                   handleChangeStatus={handleChangeStatus}
                 />
               </div>

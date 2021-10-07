@@ -2,7 +2,7 @@ import moment from "moment";
 import "date-fns";
 import { TimePicker } from "antd";
 import React, { memo } from "react";
-import { TimePickerProps } from "./types/fileTypes";
+import { TimePickerProps } from "../types/fileTypes";
 import "antd/dist/antd.css";
 export const TimePickerComponent = memo(
   ({ handelTimeChanges }: TimePickerProps) => {

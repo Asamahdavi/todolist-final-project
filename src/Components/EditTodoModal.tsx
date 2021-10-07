@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { EditTodoProps } from "./types/fileTypes";
+import { EditTodoProps } from "../types/fileTypes";
 import { FormEvent, memo } from "react";
 import React from "react";
 import { DatePickerComponent } from "./DatePickerComponent";
@@ -25,70 +25,30 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   setEditedTime,
   setEditedStatus,
   editedStatus,
+  setStatus,
 }) => {
-  console.log("edit");
-
   const handleDateChanges = (date: moment.Moment | null | undefined) => {
     let formattedDate = moment(date).format("LL");
     setEditedDate(formattedDate);
   };
 
-  // const handleDateChanges = useCallback(
-  //   (date: moment.Moment | null | undefined) => {
-  //     let formattedDate = moment(date).format("LL");
-  //     setEditedDate(formattedDate);
-  //   },
-  //   [setEditedDate]
-  // );
   const handelTimeChanges = (time: moment.Moment | null | undefined) => {
     let formattedTime = moment(time).format("HH:mm:ss");
     setEditedTime(formattedTime);
   };
-  // const handelTimeChanges = useCallback(
-  //   (time: moment.Moment | null | undefined) => {
-  //     let formattedTime = moment(time).format("HH:mm:ss");
-  //     setEditedTime(formattedTime);
-  //   },
-  //   [setEditedTime]
-  // );
+
   const handelStatusChanges = (value: any) => {
     if (isCompleted) {
       setEditedStatus("Completed");
     } else {
       setEditedStatus(value);
     }
+    setEditedStatus(value);
   };
-  // const handelStatusChanges = useCallback(
-  //   (value: any) => {
-  //     setEditedStatus(value);
-  //   },
-  //   [setEditedStatus]
-  // );
+
   const handelTaskChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditedTask(e.target.value);
   };
-  // const handelTaskChanges = useCallback(
-  //   (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     setEditedTask(e.target.value);
-  //   },
-  //   [setEditedTask]
-  // );
-
-  // const submitEdits = useCallback(
-  //   (id: string) => {
-  //     const updatedTodos = [...todos].map((todo) => {
-  //       if (todo.id === id) {
-  //         todo.task = editedTask;
-  //         todo.date = editedDate;
-  //         todo.time = editedTime;
-  //         todo.status = editedStatus;
-  //       }
-  //       return todo;
-  //     });
-  //     setTodos(updatedTodos);
-  //   },
-  //   [editedDate, editedStatus, editedTask, editedTime, setTodos, todos]
-  // );
   function submitEdits(id: string) {
     const updatedTodos = [...todos].map((todo) => {
       if (todo.id === id) {
@@ -151,6 +111,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
             </div>
             <div className="w-1/5 ">
               <StatusDropDownComponent
+                setStatus={setStatus}
                 handleChangeStatus={handelStatusChanges}
               />
             </div>

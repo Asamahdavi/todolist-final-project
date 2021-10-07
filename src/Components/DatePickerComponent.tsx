@@ -2,7 +2,7 @@ import moment from "moment";
 import "date-fns";
 import { DatePicker } from "antd";
 import React, { memo } from "react";
-import { DatePickerProps } from "./types/fileTypes";
+import { DatePickerProps } from "../types/fileTypes";
 import "antd/dist/antd.css";
 export const DatePickerComponent = memo(
   ({ handleDateChanges }: DatePickerProps) => {

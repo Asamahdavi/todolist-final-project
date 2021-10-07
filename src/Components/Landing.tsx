@@ -1,13 +1,10 @@
 import { memo, useCallback, useEffect, useState } from "react";
-import { Row } from "./Row";
-
-import { data } from "./types/staticValues";
+import { TodoList } from "./TodoList";
+import { data } from "../types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
-import { Todo } from "./types/fileTypes";
+import { Todo } from "../types/fileTypes";
 import moment from "moment";
-import React from "react";
-import { toUnicode } from "punycode";
-
+// import { sortByMounth, sortByDay, sortByMounth } from "../helper/Functions";
 export const Landing = memo(() => {
   //states
   let dateNow = new Date();
@@ -19,16 +16,17 @@ export const Landing = memo(() => {
   );
   const formattedDate = moment(dateNow).format("HH:mm:ss");
   const [time, setTime] = useState<string | null | undefined>(formattedDate);
-  const [status, setStatus] = useState<any>("In Progress");
+  const [status, setStatus] = useState<any>("In progress");
   const [editedTask, setEditedTask] = useState("");
   const [editedTime, setEditedTime] = useState<string | null | undefined>();
   const [editedDate, setEditedDate] = useState<string | null | undefined>();
   const [editedStatus, setEditedStatus] = useState<any>();
+  const [filtering, setFiltering] = useState(6);
   const [todosWeek, setTodosWeek] = useState<Todo[]>([]);
+  const [todosDay, setTodosDay] = useState<Todo[]>([]);
+  const [todosMounth, setTodosMounth] = useState<Todo[]>([]);
   const [truevalue, setTruevalue] = useState(true);
   const hasTodos = todos.length > 0;
-
-  // filter values
 
   //UseEffect
 
@@ -44,6 +42,19 @@ export const Landing = memo(() => {
     const json = JSON.stringify(todos);
     localStorage.setItem("todos", json);
   }, [todos]);
+  const filteringData = (filtering: number) => {
+    if (filtering === 1) {
+      sortByMounth();
+      setFiltering(filtering);
+    } else if (filtering === 2) {
+      sortByWeek();
+      setFiltering(filtering);
+    } else if (filtering === 3) {
+      sortByDay();
+      setFiltering(filtering);
+    }
+    return setFiltering(filtering);
+  };
 
   const handleCheckTodo = (id: string) => {
     const updatedTodos = todos.map((todo) => {
@@ -66,8 +77,9 @@ export const Landing = memo(() => {
     });
     setTodos(updatedTodos);
   };
-  const sortByWeek = () => {
+  const sortByMounth = () => {
     const now = new Date();
+
     const s1 = todos
       .filter(
         (todo: Todo) =>
@@ -78,107 +90,57 @@ export const Landing = memo(() => {
         return { ...todo };
       });
     s1.sort((a, b) => (a.date as any) - (b.date as any));
-    console.log(moment(now).format());
-    console.log(s1);
-    console.log(
-      s1.sort(
-        (a, b) =>
-          (new Date(a.date as any) as any) - (new Date(b.date as any) as any)
-      )
-    );
-    setTodos(s1);
+    setTodosMounth(s1);
   };
   const sortByDay = () => {
     const now = new Date();
     const s1 = todos
       .filter(
         (todo: Todo) =>
-          moment(todo.date).format().slice(8, 10) ===
-          moment(now).format().slice(8, 10)
+          moment(todo.date).format().slice(5, 10) ===
+          moment(now).format().slice(5, 10)
       )
       .map((todo: Todo) => {
         return { ...todo };
       });
+    s1.sort((a, b) => (a.date as any) - (b.date as any));
     console.log(moment(now).format());
-    console.log(s1);
-    setTodos(s1);
+    setTodosDay(s1);
   };
-  const sortbydidi = () => {
-    const now = new Date();
-    const s1 = todos
+  const sortByWeek = () => {
+    var d = new Date();
+    var ts = d.getTime();
+    var twelveDays = ts - 12 * 24 * 60 * 60 * 1000;
+    d.setUTCDate(twelveDays);
+
+    var date = new Date();
+    date.setDate(date.getDate() - 13);
+
+    console.log(date);
+
+    const s1 = todosMounth
       .filter(
         (todo: Todo) =>
-          moment(todo.date).format().slice(8, 10) ===
-          moment(now).format().slice(8, 10)
+          moment(todo.date).format().slice(8, 10) <
+          moment(date).format().slice(8, 10)
       )
       .map((todo: Todo) => {
         return { ...todo };
       })
       .sort((a, b) => (a.date as any) - (b.date as any));
-
-    console.log(moment(now).format());
+    setTodosWeek(s1);
     console.log(s1);
-    setTodos(s1);
   };
-
-  // const groupByDates = () => {
-  //   const oneDay = 24 * 3600 * 1000;
-  //   let today = new Date();
-  //   today.setHours(0);
-  //   today.setMinutes(0);
-  //   today.setSeconds(0);
-  //   today.setMilliseconds(0);
-  //   const today2 = today.getTime();
-  //   const toDtae = todos.map((todo: Todo) => {
-  //     const t = new Date(todo.date);
-  //   });
-  //   const overdue = todos.filter((task) => new Date(task).getTime() < today);
-  //   const todayTask = data.filter((task) => {
-  //     const due = new Date(task).getTime();
-  //     return due >= today && due < today + oneDay;
-  //   });
-  //   const tomorrow = data.filter((task) => {
-  //     const due = new Date(task).getTime();
-  //     return due >= today + oneDay && due < today + oneDay * 2;
-  //   });
-  //   const rest = data
-  //     .filter((task) => new Date(task).getTime() >= today + oneDay * 2)
-  //     .reduce((groups, d) => {
-  //       const key = d?.toString().slice(0, 15);
-  //       console.log(key);
-
-  //       if (!groups[key]) {
-  //         groups[key] = [];
-  //       }
-  //       groups[key].push(d);
-  //       return groups;
-  //     }, {});
-
-  //   return { overdue, today: todayTask, tomorrow, rest: rest };
-  // };
 
   const handleDeleteTodo = (id: string): void => {
     const updatedTodos = todos.filter((todo: { id: string }) => todo.id !== id);
     setTodos(updatedTodos);
   };
 
-  // const submitEdits = useCallback(
-  //   (id: string) => {
-  //     const updatedTodos = [...todos].map((todo) => {
-  //       if (todo.id === id) {
-  //         todo.task = editedTask;
-  //       }
-  //       return todo;
-  //     });
-  //     setTodos(updatedTodos);
-  //     console.log(todos);
-  //   },
-  //   [editedTask, todos]
-  // );
-
   const handleAddTodo = useCallback(
     (todo: Todo): void => {
       const updatedTodos = [...todos, todo];
+
       setTodos(updatedTodos);
       setTask("");
       console.log(updatedTodos);
@@ -199,166 +161,144 @@ export const Landing = memo(() => {
     setDate(formattedDate);
   };
   //dropdown selector handeler
+  const handleChangeStatus = (value: any) => {};
 
-  const handleChangeStatus = (value: any) => {
-    setStatus(value);
-    console.log(value);
-  };
-  console.log("landing");
   return (
-    <div>
+    <>
       {
-        <>
-          <div className="landingP">
-            <button
-              className="btn-add-task shadow-md  h-14 sm:flex-row flex sm:flex-nowrap  flex-grow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              onClick={openCloseModal}
-            >
-              <span className="text-3xl pt-0  my-1"> +</span>
-              <span className=" px-3  py-3 text-1xl ">Add Task</span>
-            </button>
-            {showModal ? (
-              <>
-                <BaseAddModalWrapper
-                  setEditedStatus={setEditedStatus}
-                  editedStatus={editedStatus}
-                  handleChangeStatus={handleChangeStatus}
-                  handleDateChanges={handleDateChanges}
-                  handelTimeChanges={handelTimeChanges}
-                  task={task}
-                  date={date}
-                  setStatus={setStatus}
-                  status={status}
-                  setTask={setTask}
-                  handleAddTodo={handleAddTodo}
-                  showModal={showModal}
-                  onBackDropClick={openCloseModal}
-                  setDate={setDate}
-                  setTime={setTime}
-                  time={time}
-                />
-                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-              </>
-            ) : null}
-          </div>
-          <div>
-            <button className="p-20 bg-black" onClick={() => sortByWeek()}>
-              hryyyyyyy
-            </button>
-            <div className="absolute left-14 top-20">
-              <button
-                className="btn-Todo  hover:shadow-lg  hover:bg-gray-200 focus:bg-gray-200"
-                value="uncomplete"
-                onClick={() => setTruevalue(true)}
-              >
-                To Do
-              </button>
-            </div>
-            <div className="absolute left-44 top-20 ">
-              <button
-                className="btn-Todo  hover:shadow-lg  hover:bg-gray-200 focus:bg-gray-200"
-                value="completed"
-                onClick={() => setTruevalue(false)}
-              >
-                Done
-              </button>
-            </div>
-          </div>
-          <div className="absolute flex  right-10 top-36">
-            <button
-              onClick={() => sortByWeek()}
-              className=" btn-dateFilters  rounded-l border"
-            >
-              Mounth
-            </button>
-            <button className=" btn-dateFilters border">Week</button>
-            <button
-              onClick={() => sortByDay()}
-              className=" btn-dateFilters  rounded-r border "
-            >
-              Day
-            </button>
-            <hr className="bg-black" />
-          </div>
-
-          <div className=" flex pt-40 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between ">
-            <div className="  pt-14 md:pr-2 ">
-              <span className="w-7 text-righ justify-start "> Tasks</span>
-            </div>
-            <span className="text-right  pt-14 pl-3 "> Status</span>
-            <span className=" text-right  pt-14  pl-2 pr-2"> Date</span>
-            <span className="text-right   pt-14 pr-2 "> Time</span>
-            <span className="text-right   pt-14 pr-2"> </span>
-          </div>
-
-          <div className=" bg-center h-screen flex justify-end items-center  ">
-            <section className=" bg-left w-full lg:w-full px-14 flex flex-col items-center">
-              <div className=" absolute bg-left w-full lg:w-full px-14 top-72 flex flex-col items-center">
-                {/* {todos
-                  .filter(
-                    truevalue
-                      ? (e) => e.isCompleted === false
-                      : (e) => e.isCompleted === true
-                  )
-                  .map((todo, id) => (
-                    <Row
-                      key={id}
+        <div>
+          {
+            <>
+              <div className="landingP ">
+                <button className="btn-add-task" onClick={openCloseModal}>
+                  <span className="plusSign"> +</span>
+                  <span className="addtext">Add Task</span>
+                </button>
+                {showModal ? (
+                  <>
+                    <BaseAddModalWrapper
                       setEditedStatus={setEditedStatus}
                       editedStatus={editedStatus}
-                      todo={todo}
-                      handleDeleteTodo={handleDeleteTodo}
-                      handleCheckTodo={handleCheckTodo}
-                      todos={todos}
-                      setTodos={setTodos}
-                      editedTask={editedTask}
-                      setEditedTask={setEditedTask}
-                      setEditedDate={setEditedDate}
-                      setEditedTime={setEditedTime}
-                      editedDate={editedDate}
-                      editedTime={editedTime}
-                      setTime={setTime}
+                      handleChangeStatus={handleChangeStatus}
+                      handleDateChanges={handleDateChanges}
+                      handelTimeChanges={handelTimeChanges}
+                      task={task}
+                      date={date}
+                      setStatus={setStatus}
+                      status={status}
+                      setTask={setTask}
+                      handleAddTodo={handleAddTodo}
+                      showModal={showModal}
+                      onBackDropClick={openCloseModal}
                       setDate={setDate}
-                    />
-                  ))} */}
-
-                {!hasTodos && (
-                  <p className="mb-5 text-xl text-red-500 uppercase">
-                    Please add a todo!
-                  </p>
-                )}
-                {hasTodos && <p></p>}
-                {todos
-                  .filter(
-                    truevalue
-                      ? (e) => e.isCompleted === false
-                      : (e) => e.isCompleted === true
-                  )
-                  .map((todo, id) => (
-                    <Row
-                      key={id}
-                      setEditedStatus={setEditedStatus}
-                      editedStatus={editedStatus}
-                      todo={todo}
-                      handleDeleteTodo={handleDeleteTodo}
-                      handleCheckTodo={handleCheckTodo}
-                      todos={todos}
-                      setTodos={setTodos}
-                      editedTask={editedTask}
-                      setEditedTask={setEditedTask}
-                      setEditedDate={setEditedDate}
-                      setEditedTime={setEditedTime}
-                      editedDate={editedDate}
-                      editedTime={editedTime}
                       setTime={setTime}
-                      setDate={setDate}
+                      time={time}
                     />
-                  ))}
+                    <div className="baseModalLanding"></div>
+                  </>
+                ) : null}
               </div>
-            </section>
-          </div>
-        </>
+              <div>
+                <div className="btn-TodoStyle left-14 ">
+                  <button
+                    className="btn-Todo "
+                    value="uncomplete"
+                    onClick={() => setTruevalue(true)}
+                  >
+                    To Do
+                  </button>
+                </div>
+                <div className="btn-TodoStyle left-44">
+                  <button
+                    className="btn-Todo "
+                    value="completed"
+                    onClick={() => setTruevalue(false)}
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+              <div className="absolute flex  right-10 top-36">
+                <button
+                  onClick={() => filteringData(1)}
+                  className=" btn-dateFilters  rounded-l border"
+                >
+                  Mounth
+                </button>
+                <button
+                  onClick={() => filteringData(2)}
+                  className=" btn-dateFilters border"
+                >
+                  Week
+                </button>
+                <button
+                  onClick={() => filteringData(3)}
+                  className=" btn-dateFilters  rounded-r border "
+                >
+                  Day{" "}
+                </button>
+                {/* <hr className="bg-black" /> */}
+              </div>
+
+              <div
+                onClick={() => filteringData(7)}
+                className="  flex pt-40 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between "
+              >
+                <div className="  pt-14 md:pr-2 ">
+                  <span className="w-7 text-righ justify-start "> Tasks</span>
+                </div>
+                <span className="text-right  pt-14 pl-3 "> Status</span>
+                <span className=" text-right  pt-14  pl-2 pr-2"> Date</span>
+                <span className="text-right   pt-14 pr-2 "> Time</span>
+                <span className="text-right   pt-14 pr-2"> </span>
+              </div>
+
+              <div className=" bg-center h-screen flex justify-end items-center  ">
+                <section className=" bg-left w-full lg:w-full px-14 flex flex-col items-center">
+                  <div className=" absolute bg-left w-full lg:w-full px-14 top-72 flex flex-col items-center">
+                    <>
+                      <TodoList
+                        setEditedStatus={setEditedStatus}
+                        editedStatus={editedStatus}
+                        status={status}
+                        handleDeleteTodo={handleDeleteTodo}
+                        handleCheckTodo={handleCheckTodo}
+                        todos={todos}
+                        setTodos={setTodos}
+                        editedTask={editedTask}
+                        setEditedTask={setEditedTask}
+                        setEditedDate={setEditedDate}
+                        setEditedTime={setEditedTime}
+                        editedDate={editedDate}
+                        editedTime={editedTime}
+                        setTime={setTime}
+                        setDate={setDate}
+                        todosWeek={todosWeek}
+                        todosDay={todosDay}
+                        filtering={filtering}
+                        sortByWeek={sortByWeek}
+                        sortByDay={sortByDay}
+                        setTruevalue={setTruevalue}
+                        trueValue={truevalue}
+                        setTodosWeek={setTodosWeek}
+                        setTodosDay={setTodosDay}
+                        setFiltering={setFiltering}
+                        todosMounth={todosMounth}
+                        setStatus={setStatus}
+                      />
+                    </>
+                    {!hasTodos && (
+                      <p className="mb-5 text-xl text-red-500 uppercase">
+                        Please add a todo!
+                      </p>
+                    )}
+                  </div>
+                </section>
+              </div>
+            </>
+          }
+        </div>
       }
-    </div>
+    </>
   );
 });
-// filter((todo)=> moment(todo.date).format("MM/ddd/yyyy").slice(3, 6)=== moment(date).format("MM/ddd/yyyy").slice(3, 6)? setTodos(todo): null)
