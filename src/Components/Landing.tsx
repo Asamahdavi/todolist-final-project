@@ -4,7 +4,7 @@ import { data } from "../types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
 import { Todo } from "../types/fileTypes";
 import moment from "moment";
-// import { sortByMounth, sortByDay, sortByMounth } from "../helper/Functions";
+
 export const Landing = memo(() => {
   //states
   let dateNow = new Date();
