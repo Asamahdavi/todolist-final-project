@@ -104,20 +104,9 @@ export const Landing = memo(() => {
         return { ...todo };
       });
     s1.sort((a, b) => (a.date as any) - (b.date as any));
-    console.log(moment(now).format());
     setTodosDay(s1);
   };
   const sortByWeek = () => {
-    var d = new Date();
-    var ts = d.getTime();
-    var twelveDays = ts - 12 * 24 * 60 * 60 * 1000;
-    d.setUTCDate(twelveDays);
-
-    var date = new Date();
-    date.setDate(date.getDate() - 13);
-
-    console.log(date);
-
     const s1 = todosMounth
       .filter(
         (todo: Todo) =>
@@ -129,7 +118,6 @@ export const Landing = memo(() => {
       })
       .sort((a, b) => (a.date as any) - (b.date as any));
     setTodosWeek(s1);
-    console.log(s1);
   };
 
   const handleDeleteTodo = (id: string): void => {
@@ -140,10 +128,8 @@ export const Landing = memo(() => {
   const handleAddTodo = useCallback(
     (todo: Todo): void => {
       const updatedTodos = [...todos, todo];
-
       setTodos(updatedTodos);
       setTask("");
-      console.log(updatedTodos);
     },
     [todos]
   );
@@ -237,12 +223,11 @@ export const Landing = memo(() => {
                 >
                   Day{" "}
                 </button>
-                {/* <hr className="bg-black" /> */}
               </div>
 
               <div
                 onClick={() => filteringData(7)}
-                className="  flex pt-40 lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2 2xl:gap-x-56   justify-between "
+                className="  landin-screen lg:gap-x-40  xl:gap-x-80 xl:px-20 sm:gap-x-20 xl:space-x-1 md:pb-2 md:px-10 md:gap-x-32 sm:pb-2  sm:px-12 xl:pb-7 2xl:gap-x-56  "
               >
                 <div className="  pt-14 md:pr-2 ">
                   <span className="w-7 text-righ justify-start "> Tasks</span>

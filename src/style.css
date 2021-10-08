@@ -15,20 +15,21 @@
 .baseModalLanding {
   @apply opacity-25 fixed inset-0 z-40 bg-black;
 }
-
-@screen sm {
-  btn-add-task {
-    @applay flex-nowrap flex-row;
-  }
+.landin-screen {
+  @apply flex pt-40  grid-cols-4 text-gray-600 left-36 text-xs font-sans font-medium border-b-2   justify-between;
 }
-
+.todolist {
+  @apply bg-center h-screen flex justify-end items-center;
+}
+.todolist-section {
+  @apply bg-left w-full  px-14 flex flex-col items-center;
+}
 .btn-Todo {
   @apply bg-white py-3 px-9  flex  text-blue-500 rounded border-2;
 }
 .btn-Todo:hover {
   @apply shadow-lg bg-gray-200;
 }
-
 .btn-Todo:focus {
   @apply bg-gray-200;
 }
@@ -38,9 +39,20 @@
 .btn-dateFilters {
   @apply flex-1 bg-white py-2 px-6 flex text-xs text-blue-500;
 }
-
 .landingP {
   @apply absolute right-10 top-12;
+}
+.editScreen {
+  @apply shadow-sm overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none  h-screen flex items-center justify-center;
+}
+.editScreen:focus {
+  @apply outline-none;
+}
+.input-task-edit {
+  @apply bg-transparent border-none shadow-sm text-gray-900  w-full h-24;
+}
+.input-task-edit:hover {
+  @apply bg-gray-50;
 }
 
 @tailwind utilities;

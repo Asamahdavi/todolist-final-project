@@ -147,7 +147,6 @@ export type TodolistProps = {
   setEditedDate: (date: string | null | undefined) => void;
   editedDate: string | null | undefined;
   editedTime: string | null | undefined;
-  // todo: Todo;
   todosMounth: Todo[];
   todos: Todo[];
   setTodos: (todo: Todo[]) => void;

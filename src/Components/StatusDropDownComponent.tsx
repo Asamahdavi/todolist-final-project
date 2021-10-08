@@ -6,10 +6,6 @@ export const StatusDropDownComponent = ({
   setStatus,
 }: StatusProps) => {
   const { Option } = Select;
-  // const change = (e: string) => {
-  //   setStatus(e);
-  //   console.log(e);
-  // };
 
   return (
     <div>

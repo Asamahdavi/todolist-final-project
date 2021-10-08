@@ -40,10 +40,9 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   const handelStatusChanges = (value: any) => {
     if (isCompleted) {
       setEditedStatus("Completed");
-    } else {
+    } else if (value) {
       setEditedStatus(value);
-    }
-    setEditedStatus(value);
+    } else if (!value) setEditedStatus(status);
   };
 
   const handelTaskChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,8 +57,9 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
           todo.date = editedDate;
         } else if (editedTime) {
           todo.time = editedTime;
+        } else {
+          todo.status = editedStatus;
         }
-        todo.status = editedStatus;
       }
       return todo;
     });
@@ -79,7 +79,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
     <form
       onSubmit={handleSubmitTodo}
       onClick={onBackDropClick}
-      className=" shadow-sm overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none h-screen flex items-center justify-center "
+      className="editScreen"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -97,7 +97,7 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
             name="task"
             onChange={handelTaskChanges}
             value={editedTask}
-            className="bg-transparent border-none shadow-sm text-gray-900  w-full h-24 focus:bg-gray-50"
+            className="input-task-edit"
             placeholder=". . ."
           />
         </div>

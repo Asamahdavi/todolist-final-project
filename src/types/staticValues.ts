@@ -5,7 +5,7 @@ export const data = [
     task: "Do laundry 1",
     status: "In Progress",
     isCompleted: false,
-    date: "0/01/2021 ",
+    date: "October 1, 2021 ",
     time: "02:00:00",
   },
   {
@@ -14,7 +14,7 @@ export const data = [
     task: "Do laundry 2",
     status: "In Progress",
     isCompleted: false,
-    date: "0/11/2021",
+    date: "October 2, 2021",
     time: "18:00:00",
   },
   {
@@ -23,7 +23,7 @@ export const data = [
     task: "Do laundry 3",
     status: "Completed",
     isCompleted: true,
-    date: "0/01/2021 ",
+    date: "October 7, 2021 ",
     time: "12:00:00",
   },
 ];
