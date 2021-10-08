@@ -26,7 +26,6 @@ export const Landing = memo(() => {
   const [todosDay, setTodosDay] = useState<Todo[]>([]);
   const [todosMounth, setTodosMounth] = useState<Todo[]>([]);
   const [truevalue, setTruevalue] = useState(true);
-  const hasTodos = todos.length > 0;
 
   //UseEffect
 
@@ -42,6 +41,7 @@ export const Landing = memo(() => {
     const json = JSON.stringify(todos);
     localStorage.setItem("todos", json);
   }, [todos]);
+
   const filteringData = (filtering: number) => {
     if (filtering === 1) {
       sortByMounth();
@@ -107,6 +107,7 @@ export const Landing = memo(() => {
     setTodosDay(s1);
   };
   const sortByWeek = () => {
+    sortByMounth();
     const s1 = todosMounth
       .filter(
         (todo: Todo) =>
@@ -130,6 +131,9 @@ export const Landing = memo(() => {
       const updatedTodos = [...todos, todo];
       setTodos(updatedTodos);
       setTask("");
+      setStatus("");
+      setDate(null);
+      setTime(null);
     },
     [todos]
   );
@@ -272,11 +276,6 @@ export const Landing = memo(() => {
                         setStatus={setStatus}
                       />
                     </>
-                    {!hasTodos && (
-                      <p className="mb-5 text-xl text-red-500 uppercase">
-                        Please add a todo!
-                      </p>
-                    )}
                   </div>
                 </section>
               </div>

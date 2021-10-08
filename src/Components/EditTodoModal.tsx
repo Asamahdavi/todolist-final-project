@@ -27,13 +27,13 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   editedStatus,
   setStatus,
 }) => {
-  const handleDateChanges = (date: moment.Moment | null | undefined) => {
-    let formattedDate = moment(date).format("LL");
+  const handleDateChanges = (d: moment.Moment | null | undefined) => {
+    let formattedDate = moment(d).format("LL");
     setEditedDate(formattedDate);
   };
 
-  const handelTimeChanges = (time: moment.Moment | null | undefined) => {
-    let formattedTime = moment(time).format("HH:mm:ss");
+  const handelTimeChanges = (t: moment.Moment | null | undefined) => {
+    let formattedTime = moment(t).format("HH:mm:ss");
     setEditedTime(formattedTime);
   };
 

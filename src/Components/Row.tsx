@@ -54,7 +54,7 @@ export const Row = memo(
           ${isCompleted ? "text-gray-800" : "text-gray-700"}
         `}
         >
-          <span className=" w-1/5 pt-3 text-center">{task}</span>
+          <span className=" w-1/5 pt-3 text-center">{todo.task}</span>
           <div className=" w-1/5 text-center pt-3 rounded-full ">
             <span
               className={`shadow-sm w-1/2 p-3 text-center  text-sm rounded-full text-white
@@ -72,8 +72,8 @@ export const Row = memo(
             </span>
           </div>
 
-          <span className="  w-1/5 pt-3 text-center">{date}</span>
-          <span className="  w-1/5 pt-3 text-center">{time}</span>
+          <span className="  w-1/5 pt-3 text-center">{todo.date}</span>
+          <span className="  w-1/5 pt-3 text-center">{todo.time}</span>
 
           <div className="w-1/5 pl-2 flex justify-evenly text-center items-center mr-1">
             <div>
