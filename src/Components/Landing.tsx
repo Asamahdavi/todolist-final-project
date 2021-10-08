@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { TodoList } from "./TodoList";
 import { data } from "../types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
@@ -26,21 +26,6 @@ export const Landing = memo(() => {
   const [todosDay, setTodosDay] = useState<Todo[]>([]);
   const [todosMounth, setTodosMounth] = useState<Todo[]>([]);
   const [truevalue, setTruevalue] = useState(true);
-
-  //UseEffect
-
-  useEffect(() => {
-    const json = localStorage.getItem("todos");
-    const loadedTodos = JSON.parse(json || "{}");
-    if (loadedTodos) {
-      setTodos(loadedTodos);
-    }
-  }, [setTodos]);
-
-  useEffect(() => {
-    const json = JSON.stringify(todos);
-    localStorage.setItem("todos", json);
-  }, [todos]);
 
   const filteringData = (filtering: number) => {
     if (filtering === 1) {
