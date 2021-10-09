@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { TodoList } from "./TodoList";
 import { data } from "../types/staticValues";
 import BaseAddModalWrapper from "./BaseAddModalWrapper";
@@ -26,6 +26,19 @@ export const Landing = memo(() => {
   const [todosDay, setTodosDay] = useState<Todo[]>([]);
   const [todosMounth, setTodosMounth] = useState<Todo[]>([]);
   const [truevalue, setTruevalue] = useState(true);
+
+  useEffect(() => {
+    const json = localStorage.getItem("todos");
+    const loadedTodos = JSON.parse(json || "{}");
+    if (loadedTodos) {
+      setTodos(loadedTodos);
+    }
+  }, [setTodos]);
+
+  useEffect(() => {
+    const json = JSON.stringify(todos);
+    localStorage.setItem("todos", json);
+  }, [todos]);
 
   const filteringData = (filtering: number) => {
     if (filtering === 1) {
@@ -68,8 +81,10 @@ export const Landing = memo(() => {
     const s1 = todos
       .filter(
         (todo: Todo) =>
-          moment(todo.date).format().slice(5, 7) ===
-          moment(now).format().slice(5, 7)
+          moment(new Date(todo.date as string))
+            .format("YYYY-MM-DD HH:mm:ss")
+            .slice(5, 7) ===
+          moment(now).format("YYYY-MM-DD HH:mm:ss").slice(5, 7)
       )
       .map((todo: Todo) => {
         return { ...todo };
@@ -82,8 +97,10 @@ export const Landing = memo(() => {
     const s1 = todos
       .filter(
         (todo: Todo) =>
-          moment(todo.date).format().slice(5, 10) ===
-          moment(now).format().slice(5, 10)
+          moment(new Date(todo.date as string))
+            .format("YYYY-MM-DD HH:mm:ss")
+            .slice(5, 10) ===
+          moment(now).format("YYYY-MM-DD HH:mm:ss").slice(5, 10)
       )
       .map((todo: Todo) => {
         return { ...todo };
@@ -96,13 +113,16 @@ export const Landing = memo(() => {
     const s1 = todosMounth
       .filter(
         (todo: Todo) =>
-          moment(todo.date).format().slice(8, 10) <
-          moment(date).format().slice(8, 10)
+          moment(new Date(todo.date as string))
+            .format("YYYY-MM-DD HH:mm:ss")
+            .slice(8, 10) <
+          moment(date).format("YYYY-MM-DD HH:mm:ss").slice(8, 10)
       )
       .map((todo: Todo) => {
         return { ...todo };
       })
       .sort((a, b) => (a.date as any) - (b.date as any));
+
     setTodosWeek(s1);
   };
 

@@ -28,21 +28,21 @@ const EditTodoModal: React.FC<EditTodoProps> = ({
   setStatus,
 }) => {
   const handleDateChanges = (d: moment.Moment | null | undefined) => {
-    let formattedDate = moment(d).format("LL");
+    const formattedDate = moment(d).format("LL");
     setEditedDate(formattedDate);
   };
 
   const handelTimeChanges = (t: moment.Moment | null | undefined) => {
-    let formattedTime = moment(t).format("HH:mm:ss");
+    const formattedTime = moment(t).format("HH:mm:ss");
     setEditedTime(formattedTime);
   };
 
   const handelStatusChanges = (value: any) => {
     if (isCompleted) {
       setEditedStatus("Completed");
-    } else if (value) {
-      setEditedStatus(value);
-    } else if (!value) setEditedStatus(status);
+    } else {
+      setEditedStatus(value as string);
+    }
   };
 
   const handelTaskChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
