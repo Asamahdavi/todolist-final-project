@@ -129,7 +129,6 @@ export type StatusProps = {
 };
 //todolist component props
 export type TodolistProps = {
-  todo: Todo;
   todosWeek: Todo[];
   todosDay: Todo[];
   filtering: number;

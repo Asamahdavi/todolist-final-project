@@ -23,7 +23,6 @@ export const TodoList = ({
   todosMounth,
   status,
   setStatus,
-  todo,
 }: TodolistProps) => {
   const filterindatatodos = (
     todoFilter: Todo[],

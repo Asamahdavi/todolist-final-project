@@ -111,12 +111,12 @@ export const Landing = memo(() => {
   const sortByWeek = () => {
     const now = new Date();
     sortByMounth();
-    const s1 = todosMounth
+    const s1 = todos
       .filter(
         (todo: Todo) =>
           moment(new Date(todo.date as string))
             .format("YYYY-MM-DD HH:mm:ss")
-            .slice(8, 10) <
+            .slice(8, 10) <=
           moment(now).format("YYYY-MM-DD HH:mm:ss").slice(8, 10)
       )
       .map((todo: Todo) => {
@@ -136,10 +136,10 @@ export const Landing = memo(() => {
     (todo: Todo): void => {
       const updatedTodos = [...todos, todo];
       setTodos(updatedTodos);
-      setTask("");
-      setStatus("");
-      setDate(null);
-      setTime(null);
+      // setTask("");
+      // setStatus("");
+      // setDate(null);
+      // setTime(null);
     },
     [todos]
   );
@@ -157,7 +157,9 @@ export const Landing = memo(() => {
     setDate(formattedDate);
   };
   //dropdown selector handeler
-  const handleChangeStatus = (value: any) => {};
+  const handleChangeStatus = (value: any) => {
+    setStatus(value);
+  };
 
   return (
     <>
@@ -280,14 +282,6 @@ export const Landing = memo(() => {
                         setFiltering={setFiltering}
                         todosMounth={todosMounth}
                         setStatus={setStatus}
-                        todo={{
-                          id: "",
-                          status: status,
-                          task: task,
-                          isCompleted: false,
-                          date: date,
-                          time: time,
-                        }}
                       />
                     </>
                   </div>
