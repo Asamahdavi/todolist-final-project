@@ -111,7 +111,7 @@ export const Landing = memo(() => {
   const sortByWeek = () => {
     const now = new Date();
     sortByMounth();
-    const s1 = todos
+    const s1 = todosMounth
       .filter(
         (todo: Todo) =>
           moment(new Date(todo.date as string))
