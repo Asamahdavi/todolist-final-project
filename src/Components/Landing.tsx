@@ -109,6 +109,7 @@ export const Landing = memo(() => {
     setTodosDay(s1);
   };
   const sortByWeek = () => {
+    const now = new Date();
     sortByMounth();
     const s1 = todosMounth
       .filter(
@@ -116,7 +117,7 @@ export const Landing = memo(() => {
           moment(new Date(todo.date as string))
             .format("YYYY-MM-DD HH:mm:ss")
             .slice(8, 10) <
-          moment(date).format("YYYY-MM-DD HH:mm:ss").slice(8, 10)
+          moment(now).format("YYYY-MM-DD HH:mm:ss").slice(8, 10)
       )
       .map((todo: Todo) => {
         return { ...todo };
@@ -279,6 +280,14 @@ export const Landing = memo(() => {
                         setFiltering={setFiltering}
                         todosMounth={todosMounth}
                         setStatus={setStatus}
+                        todo={{
+                          id: "",
+                          status: status,
+                          task: task,
+                          isCompleted: false,
+                          date: date,
+                          time: time,
+                        }}
                       />
                     </>
                   </div>
